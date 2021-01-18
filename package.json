@@ -1,0 +1,28 @@
+{
+  "name": "mern-stack-traversy",
+  "version": "1.0.0",
+  "description": "Mern Stack Shopping - Traversy tutorial",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "keywords": [],
+  "author": "Kavin Desi Valli",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.12",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

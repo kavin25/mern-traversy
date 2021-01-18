@@ -1,0 +1,19 @@
+GET http://localhost:5000/api/items
+
+###
+
+POST http://localhost:5000/api/items
+Content-Type: application/json
+
+{
+  "name": "Stumps"
+}
+
+###
+
+DELETE http://localhost:5000/api/items/60050fb946b885a8192e183a
+
+###
+
+# Send wrong id (not in table)
+DELETE http://localhost:5000/api/items/12345
