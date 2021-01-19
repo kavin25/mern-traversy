@@ -1,19 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
+const config = require("config");
 const { swaggerOptions, swaggerUIOptions } = require("./config/swagger");
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const items = require("./routes/api/items");
+const users = require("./routes/api/users");
+const auth = require("./routes/api/auth");
 
 const app = express();
 
 // BodyParser Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Swagger
 app.use(
@@ -23,17 +25,23 @@ app.use(
 );
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+const db = config.get("mongoURI");
 
 // Connect to Mongo
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => {
     console.log(`MongoDB Connected...`);
   })
   .catch((err) => console.log(err));
 
 app.use("/api/items", items);
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

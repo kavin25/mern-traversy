@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Item = require("../../models/Item");
 
 const Response = require("../../utils/Response");
+const auth = require("../../middleware/auth");
 
 /**
  * @swagger
@@ -23,11 +24,11 @@ router.get("/", (req, res) => {
       // res.json(items);
       response.message = "Success";
       response.rows = items;
-      res.json(response);
+      return res.json(response);
     })
     .catch((err) => {
       response.message = err.toString();
-      res.json(response);
+      return res.json(response);
     });
 });
 
@@ -35,6 +36,8 @@ router.get("/", (req, res) => {
  * @swagger
  * /api/items:
  *  post:
+ *    security:
+ *      - ApiKeyAuth: []
  *    tags:
  *      - name: Items APIs
  *    produces: application/json
@@ -54,7 +57,7 @@ router.get("/", (req, res) => {
  *      '200':
  *        description: Successfully created an Item
  */
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   let response = new Response("", []);
   const newItem = new Item({
     name: req.body.name,
@@ -66,11 +69,11 @@ router.post("/", (req, res) => {
       // res.json(item);
       response.message = "Created Post Successfully";
       response.rows = item;
-      res.json(response);
+      return res.json(response);
     })
     .catch((err) => {
       response.message = err.toString();
-      res.json(response);
+      return res.json(response);
     });
 });
 
@@ -78,6 +81,8 @@ router.post("/", (req, res) => {
  * @swagger
  * /api/items/{id}:
  *  delete:
+ *    security:
+ *      - ApiKeyAuth: []
  *    tags:
  *      - name: Items APIs
  *    responses:
@@ -96,7 +101,7 @@ router.post("/", (req, res) => {
  *          type: string
  *        description: The Item ID
  */
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   const response = new Response("", []);
   Item.findById(req.params.id)
     .then((item) => {
@@ -104,16 +109,16 @@ router.delete("/:id", (req, res) => {
         .remove()
         .then(() => {
           response.message = "Deleted Post Successfully";
-          res.json(response);
+          return res.json(response);
         })
         .catch((err) => {
           response.message = err.toString();
-          res.json(response);
+          return res.json(response);
         });
     })
     .catch((err) => {
       response.message = "Item with ID does not exist";
-      res.status(404).json(response);
+      return res.status(404).json(response);
     });
 });
 

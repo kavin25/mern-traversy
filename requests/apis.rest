@@ -4,6 +4,7 @@ GET http://localhost:5000/api/items
 
 POST http://localhost:5000/api/items
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDViNTY5MTYxNTQyMDc0OWExMjk4OCIsImlhdCI6MTYxMDk5MDEwMSwiZXhwIjoxNjEwOTkzNzAxfQ.ighobbOJwhOgw13m0WF-EvVu_kHJo4VAVvkcx7rpFAU
 
 {
   "name": "Stumps"
@@ -17,3 +18,24 @@ DELETE http://localhost:5000/api/items/60050fb946b885a8192e183a
 
 # Send wrong id (not in table)
 DELETE http://localhost:5000/api/items/12345
+
+###
+
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johndoe@gmail.com",
+  "password": "123456"
+}
+
+###
+
+POST http://localhost:5000/api/auth
+Content-Type: application/json
+
+{
+  "email": "kavinvalli@gmail.com",
+  "password": "123456"
+}
