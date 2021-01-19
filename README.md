@@ -2,6 +2,13 @@
 
 [Video Link](https://www.youtube.com/watch?v=Efwp65XF0bM&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=12)
 
+### Stack
+
+- Nodejs and Express for backend
+- MongoDB for database
+- React for frontend
+- Redux for state management
+
 ## Setup
 
 ### Clone repository
